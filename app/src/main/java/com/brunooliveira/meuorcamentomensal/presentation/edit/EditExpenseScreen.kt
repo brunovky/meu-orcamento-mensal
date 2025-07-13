@@ -230,9 +230,8 @@ fun DateSelectorField(
                 )
             },
             readOnly = true,
-            enabled = false, // impede foco, mas manteremos visual com cor manual se quiser
+            enabled = false,
             modifier = Modifier.fillMaxWidth(),
-            // Opcional: se quiser deixar as cores mais naturais mesmo com enabled = false
             colors = OutlinedTextFieldDefaults.colors(
                 disabledTextColor = Color.Black,
                 disabledTrailingIconColor = Color.Gray,

@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 fun scheduleExpenseNotification(context: Context, expenseId: Int, expenseName: String, dueDate: LocalDate, notificationHour: Int) {
     val now = LocalDateTime.now()
-    val notificationDateTime = dueDate.atTime(notificationHour, 0) // 9h da manhã
+    val notificationDateTime = dueDate.atTime(notificationHour, 0)
 
     val delay = if (notificationDateTime.isAfter(now)) {
         Duration.between(now, notificationDateTime).toMillis()

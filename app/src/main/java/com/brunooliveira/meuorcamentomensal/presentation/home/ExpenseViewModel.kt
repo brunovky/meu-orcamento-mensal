@@ -107,7 +107,7 @@ class ExpenseViewModel @Inject constructor(
     fun copyExpensesToNextMonth(expenses: List<Expense>) = viewModelScope.launch {
         expenses.forEach { expense ->
             val newExpense = expense.copy(
-                id = 0, // Ou 0L dependendo do tipo
+                id = 0,
                 dueDate = expense.dueDate.plusMonths(1),
                 status = PaymentStatus.PENDING
             )

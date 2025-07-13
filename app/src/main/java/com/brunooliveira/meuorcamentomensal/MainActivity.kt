@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
-        // Aqui pode tratar se o usuário negou a permissão, se quiser
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
