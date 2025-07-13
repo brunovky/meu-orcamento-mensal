@@ -75,7 +75,7 @@ com.brunooliveira.meuorcamentomensal
 
 1. Clone o repositório:
    ```
-   git clone https://github.com/seu-usuario/meu-orcamento-mensal.git
+   git clone https://github.com/brunovky/meu-orcamento-mensal.git
    ```
 
 2. Abra no **Android Studio Hedgehog ou mais recente**
@@ -104,7 +104,7 @@ com.brunooliveira.meuorcamentomensal
 ## 🧑‍💻 **Desenvolvedor**
 
 Bruno Oliveira  
-[LinkedIn](https://www.linkedin.com/in/seu-linkedin)  
+[LinkedIn](https://www.linkedin.com/in/broliveira92)  
 Desenvolvedor Android Sênior apaixonado por tecnologia, finanças e boas práticas de desenvolvimento.
 
 ---
