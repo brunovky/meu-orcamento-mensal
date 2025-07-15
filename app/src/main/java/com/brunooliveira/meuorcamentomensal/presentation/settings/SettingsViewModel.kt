@@ -1,13 +1,11 @@
 package com.brunooliveira.meuorcamentomensal.presentation.settings
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.brunooliveira.meuorcamentomensal.notification.NotificationPreferences
 import com.brunooliveira.meuorcamentomensal.domain.usecase.ExpenseUseCases
-import com.brunooliveira.meuorcamentomensal.notification.rescheduleAllExpenseNotifications
+import com.brunooliveira.meuorcamentomensal.notification.ExpenseNotifier
+import com.brunooliveira.meuorcamentomensal.notification.NotificationPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,7 +13,7 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val notificationPreferences: NotificationPreferences,
     private val useCases: ExpenseUseCases,
-    @ApplicationContext private val context: Context
+    private val notifier: ExpenseNotifier
 ) : ViewModel() {
 
     val notificationHourFlow = notificationPreferences.notificationHourFlow
@@ -23,8 +21,7 @@ class SettingsViewModel @Inject constructor(
     fun saveHour(hour: Int) {
         viewModelScope.launch {
             notificationPreferences.setNotificationHour(hour)
-            rescheduleAllExpenseNotifications(
-                context = context,
+            notifier.rescheduleAllNotifications(
                 useCases = useCases,
                 notificationHour = hour
             )

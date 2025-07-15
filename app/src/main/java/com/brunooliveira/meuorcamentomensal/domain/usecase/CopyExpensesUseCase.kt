@@ -12,6 +12,8 @@ class CopyExpensesUseCase(
         targetYear: Int,
         targetMonth: Int
     ): List<Long> {
+        if (expensesToCopy.isEmpty()) return emptyList()
+
         val copiedExpenses = expensesToCopy.map { expense ->
             val newDueDate = expense.dueDate.withYear(targetYear).withMonth(targetMonth)
 

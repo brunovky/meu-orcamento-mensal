@@ -27,8 +27,4 @@ class ExpenseRepositoryImpl @Inject constructor(private val dao: ExpenseDao): Ex
         dao.delete(expense.toEntity())
     }
 
-    override suspend fun updateStatus(id: Int, newStatus: String) {
-        dao.updateStatus(id, newStatus)
-    }
-
 }

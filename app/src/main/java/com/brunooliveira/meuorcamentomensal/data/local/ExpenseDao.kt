@@ -22,7 +22,4 @@ interface ExpenseDao {
     @Delete
     suspend fun delete(expense: ExpenseEntity)
 
-    @Query("UPDATE expenses SET status = :newStatus WHERE id = :id")
-    suspend fun updateStatus(id: Int, newStatus: String)
-
 }

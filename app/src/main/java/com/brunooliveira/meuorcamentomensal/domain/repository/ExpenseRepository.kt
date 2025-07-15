@@ -13,6 +13,4 @@ interface ExpenseRepository {
 
     suspend fun delete(expense: Expense)
 
-    suspend fun updateStatus(id: Int, newStatus: String)
-
 }

@@ -1,16 +1,13 @@
 package com.brunooliveira.meuorcamentomensal.presentation.home
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.brunooliveira.meuorcamentomensal.domain.model.Expense
 import com.brunooliveira.meuorcamentomensal.domain.model.PaymentStatus
 import com.brunooliveira.meuorcamentomensal.domain.usecase.ExpenseUseCases
+import com.brunooliveira.meuorcamentomensal.notification.ExpenseNotifier
 import com.brunooliveira.meuorcamentomensal.notification.NotificationPreferences
-import com.brunooliveira.meuorcamentomensal.notification.cancelExpenseNotification
-import com.brunooliveira.meuorcamentomensal.notification.scheduleExpenseNotification
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,7 +34,7 @@ data class ExpenseUiState(
 class ExpenseViewModel @Inject constructor(
     private val notificationPreferences: NotificationPreferences,
     private val useCases: ExpenseUseCases,
-    @ApplicationContext private val context: Context
+    private val notifier: ExpenseNotifier
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ExpenseUiState(isLoading = true))
@@ -82,10 +79,9 @@ class ExpenseViewModel @Inject constructor(
     fun insertExpense(expense: Expense) = viewModelScope.launch {
         val generatedId = useCases.insertExpense(expense)
         if (expense.status == PaymentStatus.PAID) {
-            cancelExpenseNotification(context, generatedId.toInt())
+            notifier.cancelNotification(generatedId.toInt())
         } else {
-            scheduleExpenseNotification(
-                context = context,
+            notifier.scheduleNotification(
                 expenseId = generatedId.toInt(),
                 expenseName = expense.name,
                 dueDate = expense.dueDate,
@@ -96,7 +92,7 @@ class ExpenseViewModel @Inject constructor(
 
     fun deleteExpense(expense: Expense) = viewModelScope.launch {
         useCases.deleteExpense(expense)
-        cancelExpenseNotification(context, expense.id)
+        notifier.cancelNotification(expense.id)
     }
 
     fun updateSelectedMonthYear(newValue: YearMonth) {
@@ -115,8 +111,7 @@ class ExpenseViewModel @Inject constructor(
 
             if (newExpense.status != PaymentStatus.PAID) {
                 val notificationHour = notificationPreferences.notificationHourFlow.first()
-                scheduleExpenseNotification(
-                    context = context,
+                notifier.scheduleNotification(
                     expenseId = newId.toInt(),
                     expenseName = newExpense.name,
                     dueDate = newExpense.dueDate,

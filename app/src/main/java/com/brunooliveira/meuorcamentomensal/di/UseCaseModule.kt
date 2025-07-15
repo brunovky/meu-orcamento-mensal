@@ -6,7 +6,6 @@ import com.brunooliveira.meuorcamentomensal.domain.usecase.DeleteExpenseUseCase
 import com.brunooliveira.meuorcamentomensal.domain.usecase.ExpenseUseCases
 import com.brunooliveira.meuorcamentomensal.domain.usecase.GetAllExpensesUseCase
 import com.brunooliveira.meuorcamentomensal.domain.usecase.InsertExpenseUseCase
-import com.brunooliveira.meuorcamentomensal.domain.usecase.UpdateExpenseStatusUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +25,6 @@ object UseCaseModule {
             getAllExpenses = GetAllExpensesUseCase(repository),
             insertExpense = InsertExpenseUseCase(repository),
             deleteExpense = DeleteExpenseUseCase(repository),
-            updateExpenseStatus = UpdateExpenseStatusUseCase(repository),
             copyExpenses = CopyExpensesUseCase(repository)
         )
     }
