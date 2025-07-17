@@ -3,11 +3,9 @@ package com.brunooliveira.meuorcamentomensal.domain.usecase
 import com.brunooliveira.meuorcamentomensal.domain.model.Expense
 import com.brunooliveira.meuorcamentomensal.domain.model.PaymentStatus
 import com.brunooliveira.meuorcamentomensal.domain.repository.ExpenseRepository
-import com.google.common.base.Verify.verify
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -27,6 +25,7 @@ class GetAllExpensesUseCaseTest {
         useCase = GetAllExpensesUseCase(repository)
     }
 
+    @Suppress("UnusedFlow")
     @Test
     fun `should return expenses flow from repository`() = runTest {
         val expenses = listOf(
